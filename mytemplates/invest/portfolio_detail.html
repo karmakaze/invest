@@ -1,0 +1,40 @@
+<h1>{{ object.question }}</h1>
+
+{% if object.error_message %}<p><strong>{{ object.error_message }}</strong></p>{% endif %}
+
+<p>User: {{object.user.first_name}} {{object.user.last_name}} &lt;{{object.user.username}}&gt;<br/>
+Portfolio: {{ object.name }}
+</p>
+
+<table>
+<tr>
+<th>Position</th>
+<th>Symbol</th>
+<th>Shares</th>
+<th>Opened</th>
+<th>Price</th>
+<th>Closed</th>
+<th>Price</th>
+</tr>
+{% for position in object.position_set.all %}
+<tr>
+<td>{{ position.get_position_display }}</td>
+<td>{{ position.symbol }}</td>
+<td align='center'>{{ position.shares|default:"" }}</td>
+<td align='center'>{{ position.open_date|default:""|date:"j-M-y" }}</td>
+<td>{{ position.open_price|default:"" }}</td>
+<td align='center'>{{ position.close_date|default:""|date:"j-M-y" }}</td>
+<td>{{ position.close_price|default:"" }}</td>
+</tr>
+{% endfor %}
+</table>
+
+{% comment %}
+<form action="/portfolios/{{ object.id }}/vote/" method="post">
+{% for position in object.position_set.all %}
+    <input type="radio" name="position" id="position{{ forloop.counter }}" value="{{ position.id }}" />
+    <label for="position{{ forloop.counter }}">{{ position.symbol }}</label><br/>
+{% endfor %}
+<input type="submit" value="Vote" />
+</form>
+{% endcomment %}

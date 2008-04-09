@@ -1,0 +1,9 @@
+{% if object_list %}
+    <ul>
+    {% for portfolio in object_list %}
+        <li><a href="{{ portfolio.id }}">{{ portfolio.name }}</a></li>
+    {% endfor %}
+    </ul>
+{% else %}
+    <p>No portfolios are available.</p>
+{% endif %}
