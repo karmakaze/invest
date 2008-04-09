@@ -9,6 +9,8 @@ info_dict = {
 dvg = 'django.views.generic'
 
 urlpatterns = patterns('',
+    (r'^admin/', include('django.contrib.admin.urls')),
+
     (r'^portfolio/$', dvg+'.list_detail.object_list', info_dict),
     (r'^portfolio/(?P<object_id>\d+)/$', dvg+'.list_detail.object_detail',
 					 info_dict),
